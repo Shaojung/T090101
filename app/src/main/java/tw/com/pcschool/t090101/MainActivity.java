@@ -11,6 +11,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,8 +33,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Log.d("NET", response);
+                        Gson gson = new GsonBuilder().create();
+                        Animals[] arr = gson.fromJson(response, Animals[].class);
 
-
+                        ani = new String[arr.length];
+                        for (int i=0;i<arr.length;i++)
+                        {
+                            ani[i] = arr[i].district;
+                        }
+                        adapter = new ArrayAdapter<String>(MainActivity.this,
+                                        android.R.layout.simple_list_item_1,
+                                        ani);
+                        lv.setAdapter(adapter);
 
                     }
                 }, new Response.ErrorListener() {
