@@ -32,24 +32,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // Log.d("NET", response);
 
-                        try {
-                            JSONArray array = new JSONArray(response);
-                            ani = new String[array.length()];
-                            for (int i=0;i<array.length();i++)
-                            {
-                                JSONObject obj = array.getJSONObject(i);
-                                String str = obj.getString("district");
-                                ani[i] = str;
-                                Log.d("NET", str);
-                            }
-                            adapter = new ArrayAdapter<String>(MainActivity.this,
-                                                    android.R.layout.simple_list_item_1,
-                                                    ani);
-                            lv.setAdapter(adapter);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
 
                     }
                 }, new Response.ErrorListener() {
